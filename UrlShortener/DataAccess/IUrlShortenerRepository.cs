@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using UrlShortener.Entities;
+using UrlShortener.Helpers;
 
 namespace UrlShortener.DataAccess
 {
@@ -13,7 +14,7 @@ namespace UrlShortener.DataAccess
 
         IQueryable<ShortenedUrlEntity> Find(Expression<Func<ShortenedUrlEntity, bool>> predicate);
 
-        IEnumerable<ShortenedUrlEntity> FindAll();
+        IEnumerable<ShortenedUrlEntity> FindAll(UrlResourceParameter urlResourceParameter);
 
         ShortenedUrlEntity FindById(int id);
 

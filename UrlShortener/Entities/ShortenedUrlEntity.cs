@@ -14,11 +14,9 @@
         [Required]
         public string Url { get; set; }
 
-        [Url]
-        [Required]
-        public string ShortenedUrl { get; set; }
-
         [Required]
         public DateTime CreationDate { get; set; }
+        
+        public int Clicks { get; set; }
     }
 }

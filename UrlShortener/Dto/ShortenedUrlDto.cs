@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using Util;
 
     public class ShortenedUrlDto
     {
@@ -10,10 +11,15 @@
         [Display(Name = "Url")]
         public string Url { get; set; }
 
+        private string _shortenedUrl;
+
         [Display(Name = "Shortened Url")]
-        public string ShortenedUrl { get; set; }
+        public string ShortenedUrl => _shortenedUrl ?? (_shortenedUrl = "http://localhost:61796/" + Shortener.ShortenUrl(Id));
 
         [Display(Name = "Creation date")]
         public DateTime CreationDate { get; set; }
+
+        [Display(Name = "Clicks")]
+        public int Clicks { get; set; }
     }
 }

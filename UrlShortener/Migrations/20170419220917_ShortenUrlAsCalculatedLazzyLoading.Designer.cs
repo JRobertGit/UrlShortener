@@ -8,9 +8,10 @@ using UrlShortener.DataAccess.DbContext;
 namespace UrlShortener.Migrations
 {
     [DbContext(typeof(UrlShortenerContext))]
-    partial class UrlShortenerContextModelSnapshot : ModelSnapshot
+    [Migration("20170419220917_ShortenUrlAsCalculatedLazzyLoading")]
+    partial class ShortenUrlAsCalculatedLazzyLoading
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")

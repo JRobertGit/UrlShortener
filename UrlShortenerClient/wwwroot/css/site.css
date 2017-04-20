@@ -46,3 +46,7 @@ textarea {
     text-overflow: ellipsis;
 
 }
+
+th{
+    text-align: center;
+}

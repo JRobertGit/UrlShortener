@@ -15,5 +15,8 @@
 
         [Display(Name = "Creation date")]
         public DateTime CreationDate { get; set; }
+
+        [Display(Name = "Clicks")]
+        public int Clicks { get; set; }
     }
 }

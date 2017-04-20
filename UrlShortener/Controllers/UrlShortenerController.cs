@@ -1,4 +1,6 @@
-﻿namespace UrlShortener.Controllers
+﻿using UrlShortener.Helpers;
+
+namespace UrlShortener.Controllers
 {
     using AutoMapper;
     using DataAccess;
@@ -20,9 +22,9 @@
         }
 
         [HttpGet("api/UrlShortener")]
-        public IActionResult Get()
+        public IActionResult Get(UrlResourceParameter urlResourceParameter)
         {
-            var urlsEntities = _urlShortenerRepository.FindAll().ToList();
+            var urlsEntities = _urlShortenerRepository.FindAll(urlResourceParameter);
             var urlDtos = Mapper.Map<IEnumerable<ShortenedUrlDto>>(urlsEntities);
             return Ok(urlDtos);
         }
@@ -67,15 +69,7 @@
                 return BadRequest(ModelState);
             }
 
-            var id = 0;
-            var urls = _urlShortenerRepository.FindAll().ToList();
-            if (urls.Any())
-            {
-                id = urls.Max(u => u.Id);
-            }
-
             var newUrl = Mapper.Map<ShortenedUrlEntity>(value);
-            newUrl.ShortenedUrl = $"{Request.Scheme}://{Request.Host}/{Shortener.ShortenUrl(++id)}";
             newUrl.CreationDate = DateTime.Now;
 
             _urlShortenerRepository.Add(newUrl);
@@ -85,7 +79,7 @@
                 return StatusCode(500, "A problem happened while handling your request");
             }
 
-            return CreatedAtRoute("GetShortenedUrl", new { id }, newUrl);
+            return CreatedAtRoute("GetShortenedUrl", new { newUrl.Id}, newUrl);
         }
 
         // PUT api/values/5
