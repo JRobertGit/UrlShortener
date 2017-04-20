@@ -23,8 +23,9 @@
             services.AddMvc().
                 AddMvcOptions(o => o.OutputFormatters.Add(new XmlDataContractSerializerOutputFormatter()));
 
+            var stagingCS = @"Server=tcp:jroberto-azure.database.windows.net,1433;Initial Catalog=UrlShortenerDB;Persist Security Info=False;User ID=jroberto;Password=Wizeline/3;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             var connectionString = @"Server=localhost\SQLEXPRESS;Database=UrlShortenerDB;Trusted_Connection=True;";
-            services.AddDbContext<UrlShortenerContext>(o => o.UseSqlServer(connectionString));
+            services.AddDbContext<UrlShortenerContext>(o => o.UseSqlServer(stagingCS));
 
             services.AddScoped<IUrlShortenerRepository, UrlShortenerRepository>();
 

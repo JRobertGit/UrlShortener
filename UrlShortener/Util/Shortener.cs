@@ -32,7 +32,7 @@
 
             foreach (var c in shUrl)
             {
-                i = (i * Base) + Alphabet.IndexOf(c);
+                i = i * Base + Alphabet.IndexOf(c);
             }
 
             return i;

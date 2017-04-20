@@ -29,7 +29,8 @@ namespace UrlShortener.DataAccess
 
         public PageList<ShortenedUrlEntity> FindAll(UrlResourceParameter urlResourceParameter)
         {
-            var urls = _urlShortenerContext.ShortenedUrls;
+            var urls = _urlShortenerContext.ShortenedUrls.
+                OrderByDescending(u => u.CreationDate);
             return PageList<ShortenedUrlEntity>.Create(urls,
                 urlResourceParameter.PageNumber,
                 urlResourceParameter.PageSize);

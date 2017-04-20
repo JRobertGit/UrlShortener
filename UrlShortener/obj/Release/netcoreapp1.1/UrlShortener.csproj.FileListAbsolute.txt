@@ -1,0 +1,9 @@
+C:\Users\JRobe\Documents\Projects\UrlShortener\UrlShortener\bin\Release\netcoreapp1.1\UrlShortener.deps.json
+C:\Users\JRobe\Documents\Projects\UrlShortener\UrlShortener\bin\Release\netcoreapp1.1\UrlShortener.runtimeconfig.json
+C:\Users\JRobe\Documents\Projects\UrlShortener\UrlShortener\bin\Release\netcoreapp1.1\UrlShortener.runtimeconfig.dev.json
+C:\Users\JRobe\Documents\Projects\UrlShortener\UrlShortener\bin\Release\netcoreapp1.1\UrlShortener.dll
+C:\Users\JRobe\Documents\Projects\UrlShortener\UrlShortener\bin\Release\netcoreapp1.1\UrlShortener.pdb
+C:\Users\JRobe\Documents\Projects\UrlShortener\UrlShortener\obj\Release\netcoreapp1.1\UrlShortener.csprojResolveAssemblyReference.cache
+C:\Users\JRobe\Documents\Projects\UrlShortener\UrlShortener\obj\Release\netcoreapp1.1\UrlShortener.AssemblyInfo.cs
+C:\Users\JRobe\Documents\Projects\UrlShortener\UrlShortener\obj\Release\netcoreapp1.1\UrlShortener.dll
+C:\Users\JRobe\Documents\Projects\UrlShortener\UrlShortener\obj\Release\netcoreapp1.1\UrlShortener.pdb

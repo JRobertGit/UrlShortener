@@ -12,7 +12,7 @@
 
     public class HomeController : Controller
     {
-        private const string Endpoint = "http://localhost:61796/api/UrlShortener";
+        private const string Endpoint = "http://urlshortenerapi.azurewebsites.net/api/UrlShortener";
 
         [HttpGet(Name = "Home")]
         public async Task<IActionResult> Index(UrlResourceParameter urlResourceParameter)
@@ -68,10 +68,7 @@
             using (var client = new HttpClient())
             {
                 var jsonModel = JsonConvert.SerializeObject(model);
-                for (var i = 0; i < 5000; i++)
-                {
-                    response = await client.PostAsync($"{Endpoint}", new StringContent(jsonModel, Encoding.UTF8, "application/json"));
-                }
+                response = await client.PostAsync($"{Endpoint}", new StringContent(jsonModel, Encoding.UTF8, "application/json"));
             }
 
             if (!response.IsSuccessStatusCode)
