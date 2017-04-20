@@ -1,4 +1,7 @@
-﻿namespace UrlShortener.Controllers
+﻿using System.Linq;
+using Microsoft.Extensions.Options;
+
+namespace UrlShortener.Controllers
 {
     using AutoMapper;
     using DataAccess;
@@ -14,12 +17,13 @@
     public class UrlShortenerController : Controller
     {
         private readonly IUrlShortenerRepository _urlShortenerRepository;
-        //private readonly IUrlHelper _urlHelper;
 
-        public UrlShortenerController(IUrlShortenerRepository urlShortenerRepository/*, IUrlHelper urlHelper*/)
+        private readonly ApiOptions _options;
+
+        public UrlShortenerController(IUrlShortenerRepository urlShortenerRepository, IOptions<ApiOptions> options)
         {
             _urlShortenerRepository = urlShortenerRepository;
-            //_urlHelper = urlHelper;
+            _options = options.Value;
         }
 
         [HttpGet("api/UrlShortener", Name = "GetUrls")]
@@ -37,7 +41,14 @@
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
 
-            var urlDtos = Mapper.Map<IEnumerable<ShortenedUrlDto>>(urls);
+            var urlDtos = urls.Select(u => new ShortenedUrlDto(_options.Domain)
+            {
+                Id = u.Id,
+                Url = u.Url,
+                CreationDate = u.CreationDate,
+                Clicks = u.Clicks,
+                LastVisit = u.LastVisit
+            });
 
             return Ok(urlDtos);
         }

@@ -39,7 +39,7 @@ namespace UrlShortener
 
             var connectionString = $"{Configuration["dbConnectionString"]}";
             services.AddDbContext<UrlShortenerContext>(o => o.UseSqlServer(connectionString));
-
+            
             services.AddScoped<IUrlShortenerRepository, UrlShortenerRepository>();
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();

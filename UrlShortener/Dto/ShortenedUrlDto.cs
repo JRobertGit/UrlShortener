@@ -6,8 +6,12 @@
 
     public class ShortenedUrlDto
     {
-        private const string DomainTest = "http://localhost:61796/";
-        //private const string DomainProd = "http://ushapi.azurewebsites.net/";
+        private readonly string _domain;
+
+        public ShortenedUrlDto(string domain)
+        {
+            _domain = domain;
+        }
 
         public int Id { get; set; }
 
@@ -17,7 +21,7 @@
         private string _shortenedUrl;
 
         [Display(Name = "Shortened Url")]
-        public string ShortenedUrl => _shortenedUrl ?? (_shortenedUrl = $"{DomainTest}{Shortener.ShortenUrl(Id)}");
+        public string ShortenedUrl => _shortenedUrl ?? (_shortenedUrl = $"{_domain}{Shortener.ShortenUrl(Id)}");
 
         [Display(Name = "Creation date")]
         public DateTime CreationDate { get; set; }
