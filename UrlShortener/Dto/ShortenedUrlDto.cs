@@ -14,7 +14,7 @@
         private string _shortenedUrl;
 
         [Display(Name = "Shortened Url")]
-        public string ShortenedUrl => _shortenedUrl ?? (_shortenedUrl = "http://ushapi.azurewebsites.net" + Shortener.ShortenUrl(Id));
+        public string ShortenedUrl => _shortenedUrl ?? (_shortenedUrl = "http://ushapi.azurewebsites.net/" + Shortener.ShortenUrl(Id));
 
         [Display(Name = "Creation date")]
         public DateTime CreationDate { get; set; }

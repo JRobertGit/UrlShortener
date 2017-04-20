@@ -12,7 +12,7 @@
 
     public class HomeController : Controller
     {
-        private const string Endpoint = "http://urlshortenerapi.azurewebsites.net/api/UrlShortener";
+        private const string Endpoint = "http://ushapi.azurewebsites.net/api/UrlShortener";
 
         [HttpGet(Name = "Home")]
         public async Task<IActionResult> Index(UrlResourceParameter urlResourceParameter)
