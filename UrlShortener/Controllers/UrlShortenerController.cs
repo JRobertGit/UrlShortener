@@ -1,13 +1,12 @@
-﻿using Newtonsoft.Json;
-using UrlShortener.Helpers;
-
-namespace UrlShortener.Controllers
+﻿namespace UrlShortener.Controllers
 {
     using AutoMapper;
     using DataAccess;
     using Dto;
     using Entities;
+    using Helpers;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using Util;
@@ -15,12 +14,12 @@ namespace UrlShortener.Controllers
     public class UrlShortenerController : Controller
     {
         private readonly IUrlShortenerRepository _urlShortenerRepository;
-        private readonly IUrlHelper _urlHelper;
+        //private readonly IUrlHelper _urlHelper;
 
-        public UrlShortenerController(IUrlShortenerRepository urlShortenerRepository, IUrlHelper urlHelper)
+        public UrlShortenerController(IUrlShortenerRepository urlShortenerRepository/*, IUrlHelper urlHelper*/)
         {
             _urlShortenerRepository = urlShortenerRepository;
-            _urlHelper = urlHelper;
+            //_urlHelper = urlHelper;
         }
 
         [HttpGet("api/UrlShortener", Name = "GetUrls")]
