@@ -37,31 +37,29 @@
         <div class="panel-heading">
             <h1 class="panel-title">Shortened URLs</h1>
         </div>
-        <div class="panel-body">
-            <table class="table table-striped table-hover">
-                <thead>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th colspan="2">Original Url</th>
+                <th>Short Url</th>
+                @*<th>Created</th>*@
+                @*<th>All Clicks</th>*@
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in (List<ShortenedUrlDto>)ViewData["shUrlList"])
+            {
                 <tr>
-                    <th colspan="2">Original Url</th>
-                    <th>Short Url</th>
-                    @*<th>Created</th>*@
-                    @*<th>All Clicks</th>*@
-                    <th>Actions</th>
+                    <td colspan="2"><a href="@item.Url">@item.Url</a></td>
+                    <td><a href="@item.ShortenedUrl">@item.ShortenedUrl</a></td>
+                    @*<td>@Html.DisplayFor(modelItem => item.CreationDate)</td>*@
+                    @*<td>@Html.DisplayFor(modelItem => item.Clicks)</td>*@
+                    <td>@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })</td>
                 </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in (List<ShortenedUrlDto>)ViewData["shUrlList"])
-                    {
-                        <tr>
-                            <td colspan="2"><a href="@item.Url">@item.Url</a></td>
-                            <td><a href="@item.ShortenedUrl">@item.ShortenedUrl</a></td>
-                            @*<td>@Html.DisplayFor(modelItem => item.CreationDate)</td>*@
-                            @*<td>@Html.DisplayFor(modelItem => item.Clicks)</td>*@
-                            <td>@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+            }
+            </tbody>
+        </table>
         <div class="panel-footer">
             @{
                 var To = int.Parse(pagination["currentPage"]) * int.Parse(pagination["pageSize"]);

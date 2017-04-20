@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <parameters>
-  <parameter name="IIS Web Application Name" description="" value="UrlShortenerAPI" tags="IisApp">
+  <parameter name="IIS Web Application Name" description="" value="UshApi" tags="IisApp">
     <parameterEntry kind="ProviderPath" scope="IisApp" match="^C:\\Users\\JRobe\\Documents\\Projects\\UrlShortener\\UrlShortener\\obj\\Release\\netcoreapp1\.1\\PubTmp\\Out\\$" />
   </parameter>
 </parameters>
