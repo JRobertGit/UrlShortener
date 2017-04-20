@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace UrlShortener.Util
+﻿namespace UrlShortener.Util
 {
+    using System.Linq;
+    using System.Text;
+
     public class Shortener
     {
         public static readonly string Alphabet = "abcdefghijklmnopqrstuvwxyz0123456789_-";

@@ -1,20 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using UrlShortener.Entities;
-using UrlShortener.Helpers;
-
-namespace UrlShortener.DataAccess
+﻿namespace UrlShortener.DataAccess
 {
+    using System;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using Entities;
+    using Helpers;
+
     public interface IUrlShortenerRepository
     {
         void Add(ShortenedUrlEntity entity);
 
         IQueryable<ShortenedUrlEntity> Find(Expression<Func<ShortenedUrlEntity, bool>> predicate);
 
-        IEnumerable<ShortenedUrlEntity> FindAll(UrlResourceParameter urlResourceParameter);
+        PageList<ShortenedUrlEntity> FindAll(UrlResourceParameter urlResourceParameter);
 
         ShortenedUrlEntity FindById(int id);
 

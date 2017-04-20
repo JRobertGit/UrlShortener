@@ -1,19 +1,20 @@
-﻿using UrlShortenerClient.Helpers;
-
-namespace UrlShortenerClient.Controllers
+﻿namespace UrlShortenerClient.Controllers
 {
+    using Helpers;
     using Microsoft.AspNetCore.Mvc;
+    using Models;
     using Newtonsoft.Json;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Net.Http;
     using System.Text;
     using System.Threading.Tasks;
-    using Models;
 
     public class HomeController : Controller
     {
         private readonly string endpoint = "http://localhost:61796/api/UrlShortener";
 
+        [HttpGet(Name = "Home")]
         public async Task<IActionResult> Index(UrlResourceParameter urlResourceParameter)
         {
             HttpResponseMessage response;
@@ -31,6 +32,19 @@ namespace UrlShortenerClient.Controllers
             var content = await response.Content.ReadAsStringAsync();
             var shUrlList = JsonConvert.DeserializeObject<List<ShortenedUrlDto>>(content);
             ViewData["shUrlList"] = shUrlList;
+
+            var pagination = response.Headers.GetValues("X-Pagination");
+            var pagJson = JsonConvert.DeserializeObject<Dictionary<string, string>>(pagination.FirstOrDefault());
+
+            pagJson.Add("nextPage",int.Parse(pagJson["currentPage"]) < int.Parse(pagJson["totalPages"])
+                ? $"{int.Parse(pagJson["currentPage"]) + 1}"
+                : "#");
+
+            pagJson.Add("previousPage", int.Parse(pagJson["currentPage"]) > 1
+                ? $"{int.Parse(pagJson["currentPage"]) - 1}"
+                : "#");
+
+            ViewData["pagination"] = pagJson;
 
             return View();
         }

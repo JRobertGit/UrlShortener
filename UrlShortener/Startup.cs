@@ -1,15 +1,18 @@
 ﻿namespace UrlShortener
 {
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.Mvc.Formatters;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Logging;
     using DataAccess;
     using DataAccess.DbContext;
     using Dto;
     using Entities;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Formatters;
+    using Microsoft.AspNetCore.Mvc.Infrastructure;
+    using Microsoft.AspNetCore.Mvc.Routing;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
 
     public class Startup
     {
@@ -24,6 +27,13 @@
             services.AddDbContext<UrlShortenerContext>(o => o.UseSqlServer(connectionString));
 
             services.AddScoped<IUrlShortenerRepository, UrlShortenerRepository>();
+
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddScoped<IUrlHelper, UrlHelper>(implementationFactory =>
+            {
+                var actionContext = implementationFactory.GetService<IActionContextAccessor>().ActionContext;
+                return new UrlHelper(actionContext);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,10 +60,6 @@
             });
 
             app.UseMvc();
-            //app.Run(async (context) =>
-            //{
-            //    await context.Response.WriteAsync("Hello World!");
-            //});
         }
     }
 }

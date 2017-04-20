@@ -1,4 +1,5 @@
-﻿using UrlShortener.Helpers;
+﻿using Newtonsoft.Json;
+using UrlShortener.Helpers;
 
 namespace UrlShortener.Controllers
 {
@@ -9,26 +10,39 @@ namespace UrlShortener.Controllers
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Util;
 
     public class UrlShortenerController : Controller
     {
         private readonly IUrlShortenerRepository _urlShortenerRepository;
+        private readonly IUrlHelper _urlHelper;
 
-        public UrlShortenerController(IUrlShortenerRepository urlShortenerRepository)
+        public UrlShortenerController(IUrlShortenerRepository urlShortenerRepository, IUrlHelper urlHelper)
         {
             _urlShortenerRepository = urlShortenerRepository;
+            _urlHelper = urlHelper;
         }
 
-        [HttpGet("api/UrlShortener")]
+        [HttpGet("api/UrlShortener", Name = "GetUrls")]
         public IActionResult Get(UrlResourceParameter urlResourceParameter)
         {
-            var urlsEntities = _urlShortenerRepository.FindAll(urlResourceParameter);
-            var urlDtos = Mapper.Map<IEnumerable<ShortenedUrlDto>>(urlsEntities);
+            var urls = _urlShortenerRepository.FindAll(urlResourceParameter);
+
+            var paginationMetaData = new
+            {
+                totalCount = urls.TotalCount,
+                pageSize = urls.PageSize,
+                currentPage = urls.CurrentPage,
+                totalPages = urls.TotalPages
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(paginationMetaData));
+
+            var urlDtos = Mapper.Map<IEnumerable<ShortenedUrlDto>>(urls);
+
             return Ok(urlDtos);
         }
-        
+
         [HttpGet("api/UrlShortener/{id}", Name = "GetShortenedUrl")]
         public IActionResult Get(int id)
         {
@@ -42,7 +56,7 @@ namespace UrlShortener.Controllers
             return Ok(urlDto);
         }
 
-        [HttpGet("/{route}")]
+        [HttpGet("/{route}", Name = "RedirectToUrl")]
         public IActionResult Get(string route)
         {
             var id = Shortener.RecoverId(route);

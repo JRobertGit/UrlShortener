@@ -5,7 +5,6 @@ namespace UrlShortener.DataAccess
     using DbContext;
     using Entities;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
 
@@ -28,10 +27,12 @@ namespace UrlShortener.DataAccess
             return _urlShortenerContext.ShortenedUrls.Where(predicate);
         }
 
-        public IEnumerable<ShortenedUrlEntity> FindAll(UrlResourceParameter urlResourceParameter)
+        public PageList<ShortenedUrlEntity> FindAll(UrlResourceParameter urlResourceParameter)
         {
-            var skip = urlResourceParameter.PageSize * (urlResourceParameter.PageNumber - 1);
-            return _urlShortenerContext.ShortenedUrls.Skip(skip).Take(urlResourceParameter.PageSize);
+            var urls = _urlShortenerContext.ShortenedUrls;
+            return PageList<ShortenedUrlEntity>.Create(urls,
+                urlResourceParameter.PageNumber,
+                urlResourceParameter.PageSize);
         }
 
         public ShortenedUrlEntity FindById(int id)
