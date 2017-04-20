@@ -1,0 +1,4 @@
+﻿{
+  "ApiEndPoint": "http://localhost:61796/api/UrlShortener"
+  //"ApiEndPoint" : "http://ushapi.azurewebsites.net/api/UrlShortener";
+}

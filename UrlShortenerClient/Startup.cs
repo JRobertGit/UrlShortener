@@ -1,4 +1,6 @@
-﻿namespace UrlShortenerClient
+﻿using UrlShortenerClient.Helpers;
+
+namespace UrlShortenerClient
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -14,6 +16,7 @@
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddJsonFile("apisettings.json", optional: false, reloadOnChange: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
@@ -24,6 +27,7 @@
         public void ConfigureServices(IServiceCollection services)
         {
             // Add framework services.
+            services.Configure<ApiLocator>(Configuration);
             services.AddMvc();
         }
 

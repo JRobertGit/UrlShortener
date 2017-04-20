@@ -1,4 +1,7 @@
-﻿namespace UrlShortenerClient.Controllers
+﻿using System;
+using Microsoft.Extensions.Options;
+
+namespace UrlShortenerClient.Controllers
 {
     using Helpers;
     using Microsoft.AspNetCore.Mvc;
@@ -12,8 +15,12 @@
 
     public class HomeController : Controller
     {
-        private const string Endpoint = "http://localhost:61796/api/UrlShortener";
-        //private const string Endpoint = "http://ushapi.azurewebsites.net/api/UrlShortener";
+        private readonly ApiLocator _api;
+
+        public HomeController(IOptions<ApiLocator> options)
+        {
+            _api = options.Value;
+        }
 
         [HttpGet(Name = "Home")]
         public async Task<IActionResult> Index(UrlResourceParameter urlResourceParameter)
@@ -21,7 +28,7 @@
             HttpResponseMessage response;
             using (var client = new HttpClient())
             {
-                var query = $"{Endpoint}/?PageNumber={urlResourceParameter.PageNumber}&pageSize={urlResourceParameter.PageSize}";
+                var query = $"{_api.ApiEndPoint}/?PageNumber={urlResourceParameter.PageNumber}&pageSize={urlResourceParameter.PageSize}";
                 response = await client.GetAsync(query);
             }
 
@@ -69,7 +76,7 @@
             using (var client = new HttpClient())
             {
                 var jsonModel = JsonConvert.SerializeObject(model);
-                response = await client.PostAsync($"{Endpoint}", new StringContent(jsonModel, Encoding.UTF8, "application/json"));
+                response = await client.PostAsync($"{_api.ApiEndPoint}", new StringContent(jsonModel, Encoding.UTF8, "application/json"));
             }
 
             if (!response.IsSuccessStatusCode)
@@ -92,7 +99,7 @@
             HttpResponseMessage response;
             using (var client = new HttpClient())
             {
-                response = await client.DeleteAsync($"{Endpoint}/{id}");
+                response = await client.DeleteAsync($"{_api.ApiEndPoint}/{id}");
             }
 
             if (!response.IsSuccessStatusCode)
