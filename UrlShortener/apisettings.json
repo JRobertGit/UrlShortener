@@ -1,0 +1,9 @@
+﻿{
+  // Testing
+  "dbConnectionString": "Server=localhost\\SQLEXPRESS;Database=UrlShortenerDB;Trusted_Connection=True;",
+  "domain": ""
+
+  // Prod
+  //"dbConnectionString": "Server=tcp:jroberto-azure.database.windows.net,1433;Initial Catalog=UrlShortenerDB;Persist Security Info=False;User ID=jroberto;Password=Wizeline/3;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+  //"domain": ""
+}
