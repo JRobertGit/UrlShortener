@@ -1,4 +1,5 @@
-﻿@using UrlShortenerClient.Models
+﻿@using System.Globalization
+@using UrlShortenerClient.Models
 @model ShortenedUrlCreateDto
 
 @{
@@ -56,7 +57,10 @@
                     <td><a href="@item.ShortenedUrl">@item.ShortenedUrl</a></td>
                     <td>@Html.DisplayFor(modelItem => item.CreationDate)</td>
                     <td>@Html.DisplayFor(modelItem => item.Clicks)</td>
-                    <td>@Html.DisplayFor(modelItem => item.LastVisit)</td>
+                    @{
+                        var lastDate = item.LastVisit.ToString().Equals("1/1/0001 12:00:00 AM") ? "" : item.LastVisit.ToString();
+                    }
+                    <td>@lastDate</td>
                     <td>@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })</td>
                 </tr>
             }
