@@ -18,6 +18,8 @@
 
         void Remove(ShortenedUrlEntity entity);
 
+        void Update(ShortenedUrlEntity entity);
+
         bool Save();
     }
 }

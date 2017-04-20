@@ -13,10 +13,13 @@
         [Display(Name = "Shortened Url")]
         public string ShortenedUrl { get; set; }
 
-        [Display(Name = "Creation date")]
+        [Display(Name = "Creation Date")]
         public DateTime CreationDate { get; set; }
 
         [Display(Name = "Clicks")]
         public int Clicks { get; set; }
+
+        [Display(Name = "Last Visit")]
+        public DateTime LastVisit { get; set; }
     }
 }

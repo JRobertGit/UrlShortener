@@ -65,6 +65,15 @@
                 return NotFound();
             }
 
+            realUrl.Clicks++;
+            realUrl.LastVisit = DateTime.Now;
+            _urlShortenerRepository.Update(realUrl);
+
+            if (!_urlShortenerRepository.Save())
+            {
+                return StatusCode(500, "A problem happened while handling your request");
+            }
+
             return RedirectPermanent(realUrl.Url);
         }
 

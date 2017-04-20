@@ -40,10 +40,11 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th colspan="2">Original Url</th>
+                <th>Original Url</th>
                 <th>Short Url</th>
-                @*<th>Created</th>*@
-                @*<th>All Clicks</th>*@
+                <th>Created</th>
+                <th>Clicks</th>
+                <th>Last Visit</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -51,10 +52,11 @@
             @foreach (var item in (List<ShortenedUrlDto>)ViewData["shUrlList"])
             {
                 <tr>
-                    <td colspan="2"><a href="@item.Url">@item.Url</a></td>
+                    <td><a href="@item.Url">@item.Url</a></td>
                     <td><a href="@item.ShortenedUrl">@item.ShortenedUrl</a></td>
-                    @*<td>@Html.DisplayFor(modelItem => item.CreationDate)</td>*@
-                    @*<td>@Html.DisplayFor(modelItem => item.Clicks)</td>*@
+                    <td>@Html.DisplayFor(modelItem => item.CreationDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Clicks)</td>
+                    <td>@Html.DisplayFor(modelItem => item.LastVisit)</td>
                     <td>@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger" })</td>
                 </tr>
             }

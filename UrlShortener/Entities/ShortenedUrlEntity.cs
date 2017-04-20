@@ -18,5 +18,7 @@
         public DateTime CreationDate { get; set; }
         
         public int Clicks { get; set; }
+
+        public DateTime LastVisit { get; set; }
     }
 }

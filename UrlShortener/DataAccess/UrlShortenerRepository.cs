@@ -46,6 +46,11 @@ namespace UrlShortener.DataAccess
             _urlShortenerContext.ShortenedUrls.Remove(entity);
         }
 
+        public void Update(ShortenedUrlEntity entity)
+        {
+            _urlShortenerContext.ShortenedUrls.Update(entity);
+        }
+
         public bool Save()
         {
             return _urlShortenerContext.SaveChanges() >= 0;
